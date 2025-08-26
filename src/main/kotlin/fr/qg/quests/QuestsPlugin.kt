@@ -71,6 +71,9 @@ class QuestsPlugin : JavaPlugin() {
         this.lifecycleManager.registerEventHandler(LifecycleEvents.COMMANDS,
             LifecycleEventHandler { it.registrar().register(command) }
         )
+    }
 
+    override fun onDisable() {
+        TownsRegistry.save()
     }
 }

@@ -18,8 +18,8 @@ import kotlin.jvm.optionals.getOrNull
 
 object TownsRegistry {
 
-    private val towns = ConcurrentHashMap<Town, MutableMap<QuestType, MutableList<Quest>>>()
-    private val storageTowns = ConcurrentHashMap<Town, TownData>()
+    private val towns = mutableMapOf<Town, MutableMap<QuestType, MutableList<Quest>>>()
+    val storageTowns = mutableMapOf<Town, TownData>()
 
     private val dataFile: File by lazy {
         val plugin = JavaPlugin.getProvidingPlugin(QuestsPlugin::class.java)
@@ -50,9 +50,15 @@ object TownsRegistry {
 
         val json = dataFile.readText()
         val type = object : TypeToken<MutableMap<Int, TownData>>() {}.type
-        return gson.fromJson<MutableMap<Int, TownData>>(json, type)
-            .mapKeys { (k, _) -> HuskTownsAPI.getInstance().getTown(k).getOrNull() }
-            .filterKeys { it != null }.mapKeys { it.key!! }
+        val map = gson.fromJson<MutableMap<Int, TownData>>(json, type)
+
+        println(map)
+
+        return map.mapKeys { (k, _) -> HuskTownsAPI.getInstance().getTown(k).getOrNull() }
+            .filterKeys {
+                println(it)
+                it != null
+            }.mapKeys { it.key!! }
     }
 
     fun save() {
@@ -62,7 +68,7 @@ object TownsRegistry {
     }
 
     fun Town.register() {
-        towns[this] = towns.getOrDefault(this, mutableMapOf())
+        towns[this] = towns.getOrPut(this) { mutableMapOf() }
         storageTowns[this] = TownData(mutableListOf(), mutableMapOf())
     }
 
@@ -74,16 +80,25 @@ object TownsRegistry {
     fun Town.getStartedQuests(questType: QuestType): List<Quest> = towns[this]?.get(questType) ?: emptyList()
 
     fun Town.startQuest(quest: Quest) {
-        val data = storageTowns[this]!!
+        val data = storageTowns[this] ?: run {
+            register()
+            storageTowns[this]!!
+        }
         data.inProgress[quest.id] = 0
         towns[this]?.get(quest.type)?.add(quest)
     }
 
-    val Town.data: TownData?
-        get() = storageTowns[this]
+    val Town.data: TownData
+        get() = storageTowns[this] ?: run {
+            register()
+            storageTowns[this]!!
+        }
 
     fun Town.increaseQuestProgress(value: Int, quest: Quest) {
-        val data = storageTowns[this]!!
+        val data = storageTowns[this] ?: run {
+            register()
+            storageTowns[this]!!
+        }
 
         data.inProgress[quest.id] = data.inProgress.getOrDefault(quest.id, 0) + value
 

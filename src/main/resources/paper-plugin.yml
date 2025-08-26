@@ -20,8 +20,3 @@ dependencies:
       load: BEFORE
       required: true
       join-classpath: true
-  bootstrap:
-    HuskTowns:
-      load: BEFORE
-      required: true
-      join-classpath: true

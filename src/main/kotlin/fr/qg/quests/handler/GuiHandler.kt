@@ -122,6 +122,7 @@ object GuiHandler {
             val returnStr = it.replace("{questname}", view.name)
                 .replace("{progression}", "$progression")
                 .replace("{goal}", "${quest.goal}")
+                .replace("&","§")
 
             if (it.contains("{description}")) {
                 view.lore.forEach {
@@ -159,12 +160,12 @@ object GuiHandler {
     }
 
     fun Player.openQuestMenu(quests: List<Quest>) : Boolean {
-
+        println("a")
         val data = this.town?.data ?: return false
-
+        println("b")
         questMenu.open(this, { inv ->
             val slots = questMenu.pattern.withIndex().filter { it.value == QUESTS_SLOT_KEY }.indices.toList()
-            quests.subList(0, slots.size).onEachIndexed { i, q ->
+            quests.subList(0, slots.size.coerceAtMost(quests.size)).onEachIndexed { i, q ->
                 val slot = slots[i]
 
                 if (data.completed.contains(q.id))

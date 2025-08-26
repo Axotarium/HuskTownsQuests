@@ -10,6 +10,9 @@ import org.bukkit.entity.Player
 object QuestGuiCommand : PlayerOnlyCommand {
 
     override fun execute(sender: Player, ctx: CommandContext<CommandSourceStack>) {
+
+        println("QuestGuiCommand")
+
         val category = ctx.getArgument("category", String::class.java)
 
         sender.openQuestMenu(category)

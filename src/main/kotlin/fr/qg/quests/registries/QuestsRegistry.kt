@@ -25,6 +25,7 @@ object QuestsRegistry {
         val config = QuestsPlugin.instance.config.getConfigurationSection("quests") ?: return result
 
         config.getKeys(false).forEach { id ->
+            println(id)
             config.getQuest(id)?.let { result.add(it) }
         }
 
@@ -32,18 +33,19 @@ object QuestsRegistry {
     }
 
     fun ConfigurationSection.getQuest(id: String): Quest? {
-        val type = safeEnumValueOf<QuestType>(getString("type", "BREAK_BLOCK")!!) ?: run {
+
+        val type = safeEnumValueOf<QuestType>(getString("$id.type", "BREAK_BLOCK")!!) ?: run {
             QGLogger.log( "Unknown quest type for quest $id", Level.WARNING)
             return null
         }
-        val goal = getInt("goal")
-        val data = getString("data") ?: run {
+        val goal = getInt("$id.goal")
+        val data = getString("$id.data") ?: run {
             QGLogger.log( "No data for quest $id", Level.WARNING)
             return null
         }
-        val prerequisites = getStringList("prerequisites")
+        val prerequisites = getStringList("$id.prerequisites")
 
-        val viewsection = getConfigurationSection("view") ?: run {
+        val viewsection = getConfigurationSection("$id.view") ?: run {
             QGLogger.log( "No view for quest $id", Level.WARNING)
             return null
         }
