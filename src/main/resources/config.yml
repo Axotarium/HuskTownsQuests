@@ -1,4 +1,14 @@
 gui:
+  menu:
+    title: "&lQuêtes"
+    pattern:
+      - "$ $ $ $ $ $ $ $ $"
+      - "$ $ $ $ $ $ $ $ $"
+      - "$ $ $ $ $ $ $ $ $"
+      - "$ $ $ $ $ $ $ $ $"
+      - "$ $ $ $ $ $ $ $ $"
+      - "$ $ $ $ $ $ $ $ $"
+    items: #let empty here
   items:
     not_started:
       type: "quest-type"

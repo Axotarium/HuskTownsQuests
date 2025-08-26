@@ -6,6 +6,7 @@ import fr.qg.quests.QuestsPlugin
 import fr.qg.quests.models.Quest
 import fr.qg.quests.models.QuestType
 import fr.qg.quests.models.TownData
+import net.william278.husktowns.api.HuskTownsAPI
 import net.william278.husktowns.town.Town
 import org.bukkit.Bukkit
 import org.bukkit.plugin.java.JavaPlugin
@@ -13,6 +14,7 @@ import java.io.File
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.ConcurrentMap
 import kotlin.collections.mutableMapOf
+import kotlin.jvm.optionals.getOrNull
 
 object TownsRegistry {
 
@@ -38,17 +40,19 @@ object TownsRegistry {
 
             data.completed.forEach { questId ->
                 val quest = QuestsRegistry.quests.first { it.id == questId }
-                towns[town]?.getOrPut(quest.type, { mutableListOf() } )?.add(quest)
+                towns[town]?.getOrPut(quest.type) { mutableListOf() }?.add(quest)
             }
         }
     }
 
-    fun loadTowns(): MutableMap<Town, TownData> {
+    fun loadTowns(): Map<Town, TownData> {
         if (!dataFile.exists()) return mutableMapOf()
 
         val json = dataFile.readText()
-        val type = object : TypeToken<MutableMap<Town, TownData>>() {}.type
-        return gson.fromJson(json, type)
+        val type = object : TypeToken<MutableMap<Int, TownData>>() {}.type
+        return gson.fromJson<MutableMap<Int, TownData>>(json, type)
+            .mapKeys { (k, _) -> HuskTownsAPI.getInstance().getTown(k).getOrNull() }
+            .filterKeys { it != null }.mapKeys { it.key!! }
     }
 
     fun save() {

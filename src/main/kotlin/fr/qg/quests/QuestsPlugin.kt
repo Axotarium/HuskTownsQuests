@@ -12,7 +12,9 @@ import fr.qg.quests.commands.QuestReloadCommand
 import fr.qg.quests.commands.QuestStartCommand
 import fr.qg.quests.commands.type.QuestArgumentType
 import fr.qg.quests.handler.GuiHandler
+import fr.qg.quests.listeners.TownListener
 import fr.qg.quests.models.Quest
+import fr.qg.quests.models.QuestType
 import fr.qg.quests.registries.QuestsRegistry
 import fr.qg.quests.registries.TownsRegistry
 import fr.qg.quests.utils.executeOnlyForPlayer
@@ -38,6 +40,10 @@ class QuestsPlugin : JavaPlugin() {
         MenuAPI.register(this)
         GuiHandler.load()
 
+        server.pluginManager.registerEvents(TownListener, this)
+
+        QuestType.entries.forEach { server.pluginManager.registerEvents(it.listener, this) }
+
         Bukkit.getScheduler().runTaskTimer(this, Runnable {
             TownsRegistry.save()
             println("towns' quests saved !")
@@ -45,22 +51,23 @@ class QuestsPlugin : JavaPlugin() {
 
         Commands.literal("townquests")
             .then(
+                Commands.literal("reload")
+                    .executeOnlyForPlayer(QuestReloadCommand)
+            )
+            .then(
                 Commands.literal("start")
                          .then(Commands.argument("quest", QuestArgumentType)
-                         .executeOnlyForPlayer(QuestStartCommand))
+                            .executeOnlyForPlayer(QuestStartCommand))
             )
             .then(Commands.literal("list")
                 .then(Commands.argument("started", BoolArgumentType.bool())
-                .executeOnlyForPlayer(QuestListCommand)
+                    .executeOnlyForPlayer(QuestListCommand)
             ))
             .then(
                 Commands.literal("gui")
                     .then(Commands.argument("category", StringArgumentType.word())
-                    .executeOnlyForPlayer(QuestGuiCommand)
+                        .executeOnlyForPlayer(QuestGuiCommand)
             ))
-            .then(
-                Commands.literal("reload")
-                    .executeOnlyForPlayer(QuestReloadCommand)
-            )
+
     }
 }

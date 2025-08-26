@@ -3,9 +3,7 @@ main: fr.qg.quests.QuestsPlugin
 version: 1.0.0
 api-version: '1.21'
 authors: ["qg"]
-depend: ["HuskTowns"]
-libraries:
-
+depend: ["HuskTowns", "PlaceholderAPI"]
 commands:
   townquests:
     description: Gestion des quêtes de ville
