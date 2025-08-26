@@ -1,0 +1,11 @@
+name: HuskTownsQuests
+main: fr.qg.quests.QuestsPlugin
+version: 1.0.0
+api-version: '1.21'
+authors: ["qg"]
+dependencies:
+  server:
+    HuskTowns:
+      load: BEFORE
+      required: true
+      join-classpath: true
