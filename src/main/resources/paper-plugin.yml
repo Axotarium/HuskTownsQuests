@@ -3,8 +3,24 @@ main: fr.qg.quests.QuestsPlugin
 version: 1.0.0
 api-version: '1.21'
 authors: ["qg"]
+commands:
+  townquests:
+    description: Gestion des quêtes de ville
+    usage: /<command> start <id> ou list
+    aliases:
+      - tq
+    permission: husktownsquests.command
+permissions:
+  husktownsquests.command:
+    description: Permet d'utiliser la commande /tq
+    default: true
 dependencies:
   server:
+    HuskTowns:
+      load: BEFORE
+      required: true
+      join-classpath: true
+  bootstrap:
     HuskTowns:
       load: BEFORE
       required: true
