@@ -6,4 +6,6 @@ import org.bukkit.entity.Player
 import kotlin.jvm.optionals.getOrNull
 
 val Player.town: Town?
-    get() = HuskTownsAPI.getInstance().getUserTown(this).getOrNull()?.town
+    get() = HuskTownsAPI.getInstance().getUserTown(
+        HuskTownsAPI.getInstance().getOnlineUser(this.uniqueId)
+    ).getOrNull()?.town

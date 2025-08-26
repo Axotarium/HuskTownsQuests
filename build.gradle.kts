@@ -16,7 +16,7 @@ repositories {
 
 dependencies {
     compileOnly("io.papermc.paper:paper-api:1.21.8-R0.1-SNAPSHOT")
-    compileOnly("net.william278:husktowns:2.6.1")
+    implementation("net.william278.husktowns:husktowns-bukkit:3.1.4")
     implementation("com.github.Qg9:StonksMenu:27")
     implementation(kotlin("stdlib"))
     compileOnly("me.clip:placeholderapi:2.11.6")

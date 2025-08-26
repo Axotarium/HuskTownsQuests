@@ -23,7 +23,7 @@ object QuestListCommand : PlayerOnlyCommand {
             }
         } else {
             QuestsRegistry.quests.forEach {
-                sender.sendPlainMessage("${it.id}")
+                sender.sendPlainMessage(it.id)
             }
         }
     }
