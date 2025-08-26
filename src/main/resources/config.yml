@@ -9,6 +9,7 @@ gui:
       - "$ $ $ $ $ $ $ $ $"
       - "$ $ $ $ $ $ $ $ $"
     items: #let empty here
+      a:
   items:
     not_started:
       type: "quest-type"
@@ -41,7 +42,7 @@ gui:
         - ""
         - "&a&lCOMPLETE"
 quests:
-  - id: break_oak_100
+  break_oak_100:
     type: BREAK_BLOCK
     goal: 100
     data: OAK_LOG

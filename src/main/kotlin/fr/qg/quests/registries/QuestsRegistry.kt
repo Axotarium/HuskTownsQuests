@@ -14,7 +14,6 @@ object QuestsRegistry {
 
     val quests: MutableList<Quest> = mutableListOf()
 
-
     fun load() {
         quests.clear()
         quests.addAll(loadQuests())
