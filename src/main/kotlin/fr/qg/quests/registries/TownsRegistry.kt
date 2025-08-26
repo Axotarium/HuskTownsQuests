@@ -10,12 +10,14 @@ import net.william278.husktowns.town.Town
 import org.bukkit.Bukkit
 import org.bukkit.plugin.java.JavaPlugin
 import java.io.File
+import java.util.concurrent.ConcurrentHashMap
+import java.util.concurrent.ConcurrentMap
 import kotlin.collections.mutableMapOf
 
 object TownsRegistry {
 
-    private val towns = mutableMapOf<Town, MutableMap<QuestType, MutableList<Quest>>>()
-    private val storageTowns = mutableMapOf<Town, TownData>()
+    private val towns = ConcurrentHashMap<Town, MutableMap<QuestType, MutableList<Quest>>>()
+    private val storageTowns = ConcurrentHashMap<Town, TownData>()
 
     private val dataFile: File by lazy {
         val plugin = JavaPlugin.getProvidingPlugin(QuestsPlugin::class.java)

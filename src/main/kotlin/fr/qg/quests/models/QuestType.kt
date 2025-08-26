@@ -1,6 +1,7 @@
 package fr.qg.quests.models
 
 import fr.qg.quests.actions.BlockBreakAction
+import fr.qg.quests.actions.CraftingAction
 import fr.qg.quests.actions.FishingAction
 import fr.qg.quests.actions.KillEntityAction
 import org.bukkit.Material

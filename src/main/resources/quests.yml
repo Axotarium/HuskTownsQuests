@@ -1,0 +1,44 @@
+gui:
+  items:
+    not_started:
+      type: "quest-type"
+      name: "&c{questname}"
+      lore:
+        - ''
+        - "&fTu dois faire : "
+        - "&7{description}"
+        - ""
+        - "&c&lPAS COMMENCE"
+      enchanted: false
+    completing:
+      type: "quest-type"
+      name: "&b{questname}"
+      lore:
+        - ''
+        - "&fTu dois faire : "
+        - "&7{description}"
+        - ""
+        - "&b{progression}&f/&b{goal}"
+      enchanted: false
+    already_completed:
+      type: "quest-type"
+      name: "&a{questname}"
+      enchanted: true
+      lore:
+        - ''
+        - "&fTu dois faire : "
+        - "&7{description}"
+        - ""
+        - "&a&lCOMPLETE"
+quests:
+  - id: break_oak_100
+    type: BREAK_BLOCK
+    goal: 100
+    data: OAK_LOG
+    view:
+      title: "Quête 1"
+      material: OAK_LOG
+      category: "stone"
+      lore:
+        - "tu dois casser"
+        - "environ 100 buches de bois"

@@ -9,11 +9,14 @@ repositories {
     mavenCentral()
     maven("https://repo.papermc.io/repository/maven-public/")
     maven("https://repo.william278.net/releases")
+    maven("https://jitpack.io")
 }
 
 dependencies {
     compileOnly("io.papermc.paper:paper-api:1.21.8-R0.1-SNAPSHOT")
     compileOnly("net.william278:husktowns:2.6.1")
+    compileOnly("com.github.Qg9:StonksMenu:27")
+    implementation(kotlin("stdlib"))
 }
 
 kotlin {
