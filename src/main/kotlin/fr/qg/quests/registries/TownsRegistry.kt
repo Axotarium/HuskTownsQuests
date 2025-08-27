@@ -11,9 +11,6 @@ import net.william278.husktowns.town.Town
 import org.bukkit.Bukkit
 import org.bukkit.plugin.java.JavaPlugin
 import java.io.File
-import java.util.concurrent.ConcurrentHashMap
-import java.util.concurrent.ConcurrentMap
-import kotlin.collections.mutableMapOf
 import kotlin.jvm.optionals.getOrNull
 
 object TownsRegistry {
@@ -51,8 +48,6 @@ object TownsRegistry {
         val json = dataFile.readText()
         val type = object : TypeToken<MutableMap<Int, TownData>>() {}.type
         val map = gson.fromJson<MutableMap<Int, TownData>>(json, type)
-
-        println(map)
 
         return map.mapKeys { (k, _) -> HuskTownsAPI.getInstance().getTown(k).getOrNull() }
             .filterKeys {

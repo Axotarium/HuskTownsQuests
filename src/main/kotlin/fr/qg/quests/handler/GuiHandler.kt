@@ -97,7 +97,7 @@ object GuiHandler {
                 val quest = quests[data.menu.mapSlot(QUESTS_SLOT_KEY, slot)]
 
                 val town = player.town ?: return
-                val data = town.data ?: return
+                val data = town.data
 
                 if (data.completed.contains(quest.id) || data.inProgress.contains(quest.id)) {
                     return

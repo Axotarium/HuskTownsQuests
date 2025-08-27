@@ -1,11 +1,9 @@
 package fr.qg.quests.actions
 
 import fr.qg.quests.models.QuestType
-import fr.qg.quests.registries.QuestsRegistry
 import fr.qg.quests.registries.TownsRegistry.getStartedQuests
 import fr.qg.quests.registries.TownsRegistry.increaseQuestProgress
 import fr.qg.quests.utils.town
-import org.bukkit.Material
 import org.bukkit.event.EventHandler
 import org.bukkit.event.block.BlockBreakEvent
 

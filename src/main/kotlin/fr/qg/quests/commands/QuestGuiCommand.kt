@@ -1,7 +1,6 @@
 package fr.qg.quests.commands
 
 import com.mojang.brigadier.context.CommandContext
-import fr.qg.quests.handler.GuiHandler
 import fr.qg.quests.handler.GuiHandler.openQuestMenu
 import fr.qg.quests.utils.PlayerOnlyCommand
 import io.papermc.paper.command.brigadier.CommandSourceStack

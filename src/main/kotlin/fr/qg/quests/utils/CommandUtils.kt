@@ -2,10 +2,7 @@ package fr.qg.quests.utils
 
 import com.mojang.brigadier.Command
 import com.mojang.brigadier.builder.ArgumentBuilder
-import com.mojang.brigadier.builder.LiteralArgumentBuilder
-import com.mojang.brigadier.builder.RequiredArgumentBuilder
 import com.mojang.brigadier.context.CommandContext
-import fr.qg.quests.commands.QuestGuiCommand
 import io.papermc.paper.command.brigadier.CommandSourceStack
 import org.bukkit.entity.Player
 
@@ -13,8 +10,8 @@ import org.bukkit.entity.Player
 fun <T : ArgumentBuilder<CommandSourceStack, T>> ArgumentBuilder<CommandSourceStack, T>
         .executeOnlyForPlayer(cmd: PlayerOnlyCommand): T? =
     executes { ctx ->
-        val sender = ctx.getSource().getSender()
-        val executor = ctx.getSource().getExecutor()
+        val sender = ctx.getSource().sender
+        val executor = ctx.getSource().executor
 
         if (executor !is Player) {
             sender.sendPlainMessage("The command is player only !")

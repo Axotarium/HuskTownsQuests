@@ -2,7 +2,6 @@ package fr.qg.quests.commands
 
 import com.mojang.brigadier.context.CommandContext
 import fr.qg.quests.registries.QuestsRegistry
-import fr.qg.quests.registries.TownsRegistry
 import fr.qg.quests.registries.TownsRegistry.data
 import fr.qg.quests.utils.PlayerOnlyCommand
 import fr.qg.quests.utils.town

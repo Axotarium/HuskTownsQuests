@@ -11,12 +11,12 @@ import fr.qg.quests.commands.type.QuestArgumentType
 import fr.qg.quests.handler.GuiHandler
 import fr.qg.quests.listeners.TownListener
 import fr.qg.quests.models.QuestType
+import fr.qg.quests.placeholders.HTQExpansion
 import fr.qg.quests.registries.QuestsRegistry
 import fr.qg.quests.registries.TownsRegistry
 import fr.qg.quests.utils.executeOnlyForPlayer
 import io.papermc.paper.command.brigadier.Commands
 import io.papermc.paper.plugin.lifecycle.event.handler.LifecycleEventHandler
-import io.papermc.paper.plugin.lifecycle.event.registrar.ReloadableRegistrarEvent
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents
 import org.bukkit.Bukkit
 import org.bukkit.plugin.java.JavaPlugin
@@ -43,6 +43,10 @@ class QuestsPlugin : JavaPlugin() {
 
         QuestType.entries.forEach { server.pluginManager.registerEvents(it.listener, this) }
 
+        if (server.pluginManager.getPlugin("PlaceholderAPI") != null) {
+            HTQExpansion.register()
+        }
+
         Bukkit.getScheduler().runTaskTimer(this, Runnable {
             TownsRegistry.save()
             println("towns' quests saved !")
@@ -66,7 +70,6 @@ class QuestsPlugin : JavaPlugin() {
                     .then(Commands.argument("category", StringArgumentType.word())
                         .executeOnlyForPlayer(QuestGuiCommand)
             )).build()
-
 
         this.lifecycleManager.registerEventHandler(LifecycleEvents.COMMANDS,
             LifecycleEventHandler { it.registrar().register(command) }
